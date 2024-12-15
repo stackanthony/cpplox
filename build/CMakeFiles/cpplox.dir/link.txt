@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/cpplox.dir/main.cpp.o CMakeFiles/cpplox.dir/classes/lox.cpp.o CMakeFiles/cpplox.dir/classes/Scanner.cpp.o -o cpplox 

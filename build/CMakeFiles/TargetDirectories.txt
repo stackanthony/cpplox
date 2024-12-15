@@ -1,3 +1,0 @@
-/home/bstg/Desktop/learning/lox/build/CMakeFiles/cpplox.dir
-/home/bstg/Desktop/learning/lox/build/CMakeFiles/edit_cache.dir
-/home/bstg/Desktop/learning/lox/build/CMakeFiles/rebuild_cache.dir
