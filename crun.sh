@@ -3,3 +3,4 @@ mkdir -p build
 cd build || exit
 cmake ..
 make
+"$PWD"/cpplox

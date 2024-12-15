@@ -4,7 +4,7 @@
 #include <string>
 class Lox {
 public:
-  static bool hadError;
+  inline static bool hadError = false;
   static void main(int argc, char* argv[]);
   static void error(int line, std::string message);
   static void report(int line, std::string where, std::string mesage);

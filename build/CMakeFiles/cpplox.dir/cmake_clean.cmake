@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/cpplox.dir/classes/Scanner.cpp.o"
+  "CMakeFiles/cpplox.dir/classes/Scanner.cpp.o.d"
   "CMakeFiles/cpplox.dir/classes/lox.cpp.o"
   "CMakeFiles/cpplox.dir/classes/lox.cpp.o.d"
   "CMakeFiles/cpplox.dir/main.cpp.o"

@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/bstg/Desktop/learning/lox/classes/Scanner.cpp" "CMakeFiles/cpplox.dir/classes/Scanner.cpp.o" "gcc" "CMakeFiles/cpplox.dir/classes/Scanner.cpp.o.d"
   "/home/bstg/Desktop/learning/lox/classes/lox.cpp" "CMakeFiles/cpplox.dir/classes/lox.cpp.o" "gcc" "CMakeFiles/cpplox.dir/classes/lox.cpp.o.d"
   "/home/bstg/Desktop/learning/lox/main.cpp" "CMakeFiles/cpplox.dir/main.cpp.o" "gcc" "CMakeFiles/cpplox.dir/main.cpp.o.d"
   )

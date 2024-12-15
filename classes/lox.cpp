@@ -1,9 +1,12 @@
 #include "lox.h"
+#include "Scanner.h"
+#include "Token.h"
 #include <fstream>
 #include <ios>
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <vector>
 
 void Lox::main(int argc, char* argv[]) {
   std::cout << "ARGC: " << argc << std::endl;
@@ -50,7 +53,15 @@ void Lox::runPrompt() {
 }
 
 // INFO: This should print our tokens once we have that step done
-void Lox::run(std::string content) { std::cout << content << std::endl; }
+void Lox::run(std::string content) {
+  // std::vector<Token> tokens =
+  Scanner scanner{content};
+  std::vector<Token> tokens = scanner.scanTokens();
+
+  for (Token& token : tokens) {
+    std::cout << token.toString() << std::endl;
+  }
+}
 
 void Lox::report(int line, std::string where, std::string message) {
   std::cout << "[line " << line << "] Error" << where << ": " << message
@@ -58,4 +69,6 @@ void Lox::report(int line, std::string where, std::string message) {
   Lox::hadError = true;
 }
 
-void error(int line, std::string message) { Lox::report(line, "", message); }
+void Lox::error(int line, std::string message) {
+  Lox::report(line, "", message);
+}

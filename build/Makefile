@@ -129,6 +129,30 @@ cpplox/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpplox.dir/build.make CMakeFiles/cpplox.dir/build
 .PHONY : cpplox/fast
 
+classes/Scanner.o: classes/Scanner.cpp.o
+.PHONY : classes/Scanner.o
+
+# target to build an object file
+classes/Scanner.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpplox.dir/build.make CMakeFiles/cpplox.dir/classes/Scanner.cpp.o
+.PHONY : classes/Scanner.cpp.o
+
+classes/Scanner.i: classes/Scanner.cpp.i
+.PHONY : classes/Scanner.i
+
+# target to preprocess a source file
+classes/Scanner.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpplox.dir/build.make CMakeFiles/cpplox.dir/classes/Scanner.cpp.i
+.PHONY : classes/Scanner.cpp.i
+
+classes/Scanner.s: classes/Scanner.cpp.s
+.PHONY : classes/Scanner.s
+
+# target to generate assembly for a file
+classes/Scanner.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpplox.dir/build.make CMakeFiles/cpplox.dir/classes/Scanner.cpp.s
+.PHONY : classes/Scanner.cpp.s
+
 classes/lox.o: classes/lox.cpp.o
 .PHONY : classes/lox.o
 
@@ -186,6 +210,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... cpplox"
+	@echo "... classes/Scanner.o"
+	@echo "... classes/Scanner.i"
+	@echo "... classes/Scanner.s"
 	@echo "... classes/lox.o"
 	@echo "... classes/lox.i"
 	@echo "... classes/lox.s"

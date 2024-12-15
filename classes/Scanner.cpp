@@ -1,6 +1,7 @@
 #include "Scanner.h"
 #include "TokenType.h"
 #include "lox.h"
+#include <string>
 
 bool Scanner::isAtEnd() { return current >= source.length(); }
 std::vector<Token> Scanner::scanTokens() {
@@ -8,7 +9,7 @@ std::vector<Token> Scanner::scanTokens() {
     start = current;
     scanToken();
   }
-  tokens.push_back(Token(TokenType::END_OF_FILE, "", nullptr, line));
+  tokens.push_back(Token(TokenType::END_OF_FILE, "EOF", nullptr, line));
 
   return tokens;
 }
@@ -39,6 +40,27 @@ bool Scanner::match(char expected) {
 
 char Scanner::peek() { return source[current]; }
 
+void Scanner::string() {
+  while (peek() != '"' && !isAtEnd()) {
+    if (peek() == '\n') {
+      line++;
+    }
+    advance();
+  }
+
+  if (isAtEnd()) {
+    Lox::error(line, "Unterminated String Literal");
+    return;
+  }
+
+  // Advance past the closing "
+  advance();
+
+  std::string stringLiteral =
+      source.substr(start + 1, (current - 1) - (start + 1));
+  addToken(STRING, stringLiteral);
+}
+
 void Scanner::scanToken() {
   char c = advance();
   switch (c) {
@@ -49,10 +71,10 @@ void Scanner::scanToken() {
     addToken(RIGHT_PAREN);
     break;
   case '{':
-    addToken(RIGHT_BRACE);
+    addToken(LEFT_BRACE);
     break;
   case '}':
-    addToken(LEFT_BRACE);
+    addToken(RIGHT_BRACE);
     break;
   case ',':
     addToken(COMMA);
@@ -99,6 +121,9 @@ void Scanner::scanToken() {
     break;
   case '\n':
     line++;
+    break;
+  case '"':
+    string();
     break;
   default:
     Lox::error(line, "Unexpected character.");

@@ -26,5 +26,7 @@ private:
            const std::variant<std::nullptr_t, std::string, double> literal);
   bool match(char expected);
   char peek();
+  void string();
+  bool isDigit();
 };
 #endif
