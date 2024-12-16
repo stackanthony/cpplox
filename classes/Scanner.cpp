@@ -1,6 +1,9 @@
 #include "Scanner.h"
 #include "TokenType.h"
 #include "lox.h"
+#include <cctype>
+#include <iostream>
+#include <ostream>
 #include <string>
 
 bool Scanner::isAtEnd() { return current >= source.length(); }
@@ -14,6 +17,7 @@ std::vector<Token> Scanner::scanTokens() {
   return tokens;
 }
 
+// INFO: Increments current and returns the character before the increment
 char Scanner::advance() {
   current++;
   return source[current - 1];
@@ -61,6 +65,32 @@ void Scanner::string() {
   addToken(STRING, stringLiteral);
 }
 
+void Scanner::number() {
+  char peekChar = peek();
+  int dotCount = 0;
+
+  while (std::isdigit(peekChar) || (peekChar == '.')) {
+    if (peekChar == '.') {
+      dotCount++;
+    }
+    char prevChar = advance();
+    peekChar = peek();
+
+    if (!std::isdigit(peekChar) && prevChar == '.') {
+      Lox::error(line, "No trailing decimals.");
+      return;
+    }
+  }
+
+  if (dotCount > 1) {
+    Lox::error(line, "Invalid Double Representation. Too many dots bozo");
+    return;
+  }
+
+  std::string doubleSubstr = source.substr(start, current);
+  addToken(NUMBER, std::stod(doubleSubstr));
+}
+
 void Scanner::scanToken() {
   char c = advance();
   switch (c) {
@@ -80,6 +110,13 @@ void Scanner::scanToken() {
     addToken(COMMA);
     break;
   case '.':
+    if (std::isdigit(peek())) {
+      Lox::error(line, "We don't support leading decimals. womp womp :(");
+      while (std::isdigit(peek())) {
+        advance();
+      }
+      break;
+    }
     addToken(DOT);
     break;
   case '-':
@@ -126,6 +163,12 @@ void Scanner::scanToken() {
     string();
     break;
   default:
+    // If the current character is a digit, then go through the number lexical
+    // analysis
+    if (std::isdigit(c)) {
+      number();
+      break;
+    }
     Lox::error(line, "Unexpected character.");
     break;
   }

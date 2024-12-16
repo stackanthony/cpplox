@@ -9,8 +9,6 @@
 #include <vector>
 
 void Lox::main(int argc, char* argv[]) {
-  std::cout << "ARGC: " << argc << std::endl;
-
   if (argc > 2) {
     std::cout << "Usage: cpplox [script]" << std::endl;
     exit(64);
