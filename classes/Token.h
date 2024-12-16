@@ -3,6 +3,7 @@
 #include "TokenType.h"
 #include <cstddef>
 #include <string>
+#include <unordered_map>
 #include <variant>
 
 class Token {
@@ -17,6 +18,10 @@ public:
         std::variant<std::nullptr_t, std::string, double> literal, int line)
       : type(type), lexeme(lexeme), literal(literal), line(line) {}
 
+  inline static const std::unordered_map<std::string, TokenType> reserved_map =
+      {{"and", AND},     {"class", CLASS}, {"else", ELSE},
+       {"false", FALSE}, {"fun", FUN},     {"for", FOR},
+       {"if", IF},       {"nil", NIL},     {"or", OR}};
   std::string toString() {
     std::string literalStr;
     if (std::holds_alternative<std::string>(literal)) {

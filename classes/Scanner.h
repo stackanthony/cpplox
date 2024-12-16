@@ -28,5 +28,6 @@ private:
   char peek();
   void string();
   void number();
+  void reserved();
 };
 #endif

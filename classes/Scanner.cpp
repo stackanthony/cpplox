@@ -1,9 +1,8 @@
 #include "Scanner.h"
+#include "Token.h"
 #include "TokenType.h"
 #include "lox.h"
 #include <cctype>
-#include <iostream>
-#include <ostream>
 #include <string>
 
 bool Scanner::isAtEnd() { return current >= source.length(); }
@@ -91,6 +90,30 @@ void Scanner::number() {
   addToken(NUMBER, std::stod(doubleSubstr));
 }
 
+void Scanner::reserved() {
+  char curChar = peek();
+  while (curChar != '\n' && !std::isspace(curChar) && !isAtEnd()) {
+    advance();
+    curChar = peek();
+  }
+
+  if (curChar == '\n') {
+    Lox::error(line, "Incomplete identifier detected. Seems like a skill-issue "
+                     "(¯\\_(ツ)_/¯)");
+    return;
+  }
+
+  std::string sourceSubStr = source.substr(start, current);
+  auto search = Token::reserved_map.find(sourceSubStr);
+  bool hasKey = search != Token::reserved_map.end();
+  if (hasKey) {
+    addToken(Token::reserved_map.at(sourceSubStr), sourceSubStr);
+    return;
+  }
+
+  addToken(IDENTIFIER, sourceSubStr);
+}
+
 void Scanner::scanToken() {
   char c = advance();
   switch (c) {
@@ -167,6 +190,9 @@ void Scanner::scanToken() {
     // analysis
     if (std::isdigit(c)) {
       number();
+      break;
+    } else if (std::isalnum(c)) {
+      reserved();
       break;
     }
     Lox::error(line, "Unexpected character.");
